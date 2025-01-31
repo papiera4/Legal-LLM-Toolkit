@@ -34,7 +34,7 @@ system_prompt = """
 你是一个专业的法律文书信息提取和结构化助手，专门处理中国XXXX文书。你的任务是从给定的文书中准确、系统地提取关键信息，并按照标准化的格式进行输出。
 """
 
-assistant_prompt = """
+user_prompt = """
 从行政处罚文书提取这些信息：文书编号；原文链接；年份；省份，如果文书中没有提省份，但提了市或者县，则根据该市位置判断省份，直接输出该省简称（如北京、内蒙古、江苏，而不是北京市、内蒙古自治区、江苏省）；
 是否给予警告，是=1，否=0；
 ……。
@@ -72,7 +72,7 @@ for filename in os.listdir(input_directory):
                             
                             prompts = [
                                 {"role": "system", "content": system_prompt},
-                                {"role": "user", "content": assistant_prompt + document_text}
+                                {"role": "user", "content": user_prompt + document_text}
                             ]
 
                             responses = client.chat.completions.create(  
