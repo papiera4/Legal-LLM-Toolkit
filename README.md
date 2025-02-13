@@ -1,2 +1,2 @@
-# Legal-GPT-Toolkit
-Advanced GPT toolkit for legal research
+# Legal-LLM-Toolkit
+Advanced LLM (Large Language Model) toolkit for legal research
