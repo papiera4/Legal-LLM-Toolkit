@@ -1,10 +1,10 @@
-# 这个代码模板用于处理从北大法宝数据库批量下载的法律文书，下载时选择保存为“纯文本”，下载后的压缩包无需解压，全部放在{input_directory}目录下
 
 import json
 import csv
 import zipfile
 import os
 import re
+from openai import OpenAI
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -12,23 +12,15 @@ load_dotenv()
 input_directory = 'XXXX'
 output_directory = 'XXXX'
 
-# from openai import AzureOpenAI  
-# endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-# subscription_key = os.getenv("AZURE_OPENAI_API_KEY")
-# api_version=os.getenv("AZURE_OPENAI_API_VERSION")
-# client = AzureOpenAI(  
-#     azure_endpoint=endpoint,  
-#     api_key=subscription_key,  
-#     api_version=api_version,  
-# )
 
-# from openai import OpenAI
-# apiKey = os.getenv("OPENAI_API_KEY")
-# client = OpenAI(
-#     api_key=apiKey,
-# )
+apiKey = os.getenv("OPENAI_API_KEY")
+baseUrl = os.getenv("OPENAI_API_BASE")
+client = OpenAI(
+    api_key=apiKey,
+    base_url=baseUrl,
+)
 
-deployment = "XXXX" # 替换为你的模型, example: gpt-4
+deployment = "XXXX" # 替换为你的模型, 例如: gpt-4
 
 system_prompt = """
 你是一个专业的法律文书信息提取和结构化助手，专门处理中国XXXX文书。你的任务是从给定的文书中准确、系统地提取关键信息，并按照标准化的格式进行输出。
@@ -49,7 +41,7 @@ json的key为：
 
 csv_headers = [
     "文书编号", "原文链接", "年份", "省份",
-    "警告", ……
+    "警告",
     "其他"
 ]
 
