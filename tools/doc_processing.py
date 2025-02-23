@@ -30,7 +30,8 @@ INPUT_DIR = Path('XXX') # 存储文书txt文件的目录
 OUTPUT_DIR = Path('XXX') # 输出目录
 LOG_FILE = OUTPUT_DIR / 'processed.log'
 CSV_PATH = OUTPUT_DIR / 'results.csv'
-MODEL_DEPLOYMENT = "XXX"  # 替换为你的模型
+MODEL_DEPLOYMENT = "XXX" # 替换为你的模型
+MAX_WORKERS = 10 # 最大线程数
 
 # 正则表达式预编译
 LINK_PATTERN = re.compile(r'(https?://[^\s]+)')
@@ -160,7 +161,7 @@ def main():
     tasks = [f for f in INPUT_DIR.glob('*.txt') if str(f) not in processed]
 
     # 并行处理
-    with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         futures = {executor.submit(process_file, f): f for f in tasks}
         for future in concurrent.futures.as_completed(futures):
             if future.exception():
