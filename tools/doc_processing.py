@@ -1,3 +1,19 @@
+"""
+北大法宝（pkulaw.com）文书批量处理工具
+
+功能：
+批量处理从北大法宝下载的txt格式的文书，提取关键信息并保存为CSV格式。
+
+使用方法：
+1. 修改INPUT_DIR和OUTPUT_DIR变量为你的输入输出目录
+2. 修改MODEL_DEPLOYMENT变量为你的模型
+3. 修改USER_PROMPT和CSV_HEADERS，注意：法宝引证码和原文链接不要写在提示词中
+4. 创建.env文件，添加OPENAI_API_KEY和OPENAI_API_BASE变量
+5. 运行：
+python3 doc_processing.py
+
+"""
+
 import json
 import csv
 import os
@@ -22,7 +38,7 @@ PKULAW_PATTERN = re.compile(r'.*\(([^)]+)\)[^()]*\.txt$')
 
 # 提示词模板
 SYSTEM_PROMPT = """
-你是一个专业的法律文书信息提取和结构化助手，专门处理中国XXXX文书。你的任务是从给定的文书中准确、系统地提取关键信息，并按照标准化的格式进行输出。
+你是一个专业的法律文书信息提取和结构化助手，专门处理中国法律文书。你的任务是从给定的文书中准确、系统地提取关键信息，并按照标准化的格式进行输出。
 """
 
 USER_PROMPT = """
