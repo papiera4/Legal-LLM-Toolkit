@@ -46,7 +46,9 @@ def main():
     parser.add_argument('--output', required=True, help='解压目录')
     args = parser.parse_args()
 
-    processed = extract_all_zips(args.input, args.output)
+    input_dir = args.input
+    output_dir = args.output
+    processed = extract_all_zips(input_dir, output_dir)
     print(f"Successfully processed {len(processed)} ZIP files")
 
 if __name__ == "__main__":
