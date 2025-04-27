@@ -10,7 +10,7 @@
 3. 修改USER_PROMPT和CSV_HEADERS，注意：法宝引证码和原文链接不要写在提示词中
 4. 创建.env文件，添加OPENAI_API_KEY和OPENAI_API_BASE变量
 5. 运行：
-python3 doc_processing.py
+python3 txt_processing_pkulaw.py
 
 """
 
